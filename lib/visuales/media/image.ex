@@ -14,5 +14,6 @@ defmodule Visuales.Media.Image do
     image
     |> cast(attrs, [:name, :active])
     |> validate_required([:name, :active])
+    |> unique_constraint(:name)
   end
 end
