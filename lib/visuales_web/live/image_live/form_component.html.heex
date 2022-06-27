@@ -12,6 +12,10 @@
     <%= label f, :name %>
     <%= text_input f, :name %>
     <%= error_tag f, :name %>
+
+    <% # File upload fields here: %>
+    <%= label f, :photo %>
+    <%= live_file_input @uploads.photo %>
   
     <%= label f, :active %>
     <%= checkbox f, :active %>

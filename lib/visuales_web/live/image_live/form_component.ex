@@ -10,7 +10,8 @@ defmodule VisualesWeb.ImageLive.FormComponent do
     {:ok,
      socket
      |> assign(assigns)
-     |> assign(:changeset, changeset)}
+     |> assign(:changeset, changeset)
+     |> allow_upload(:photo, accept: ~w(video/* image/*), max_entries: 2)}
   end
 
   @impl true
@@ -24,7 +25,18 @@ defmodule VisualesWeb.ImageLive.FormComponent do
   end
 
   def handle_event("save", %{"image" => image_params}, socket) do
-    save_image(socket, socket.assigns.action, image_params)
+
+    uploaded_files =
+      consume_uploaded_entries(socket, :photo, fn %{path: path}, _entry ->
+        dest = Path.join([:code.priv_dir(:visuales), "static", "uploads", Path.basename(path)])
+        # The `static/uploads` directory must exist for `File.cp!/2` to work.
+        File.cp!(path, dest)
+        {:ok, Routes.static_path(socket, "/uploads/#{Path.basename(dest)}")}
+      end)
+
+      Map.put_new(image_params, "photo", uploaded_files)
+
+      save_image(socket, socket.assigns.action, image_params)
   end
 
   defp save_image(socket, :edit, image_params) do

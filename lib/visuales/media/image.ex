@@ -5,6 +5,7 @@ defmodule Visuales.Media.Image do
   schema "images" do
     field :active, :boolean, default: false
     field :name, :string
+    field :photo, :string
 
     timestamps()
   end
