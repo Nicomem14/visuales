@@ -13,8 +13,8 @@ defmodule Visuales.Media.Image do
   @doc false
   def changeset(image, attrs) do
     image
-    |> cast(attrs, [:name, :active])
-    |> validate_required([:name, :active])
+    |> cast(attrs, [:name, :active, :photo])
+    |> validate_required([:name, :active, :photo])
     |> unique_constraint(:name)
   end
 end
