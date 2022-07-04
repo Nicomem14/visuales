@@ -27,9 +27,7 @@ defmodule VisualesWeb.ImageLive.FormComponent do
   def handle_event("save", %{"image" => image_params}, socket) do
 
     consume_uploaded_entries(socket, :photo, fn %{path: path } = koko, _entry ->
-        IO.inspect(koko, label: "koko")
         dest = Path.join([:code.priv_dir(:visuales), "static", "uploads", Path.basename(path)])
-        # The `static/uploads` directory must exist for `File.cp!/2` to work.
         File.cp!(path, dest)
         {:ok, Routes.static_path(socket, "/uploads/#{Path.basename(dest)}")}
       end)
