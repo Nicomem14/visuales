@@ -17,7 +17,6 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Active</th>
       <th>Photo</th>
       <th></th>
     </tr>
@@ -26,8 +25,11 @@
     <%= for image <- @images do %>
       <tr id={"image-#{image.id}"}>
         <td><%= image.name %></td>
-        <td><%= image.active %></td>
-        <td><%= image.photo %></td>
+        <td>
+          <video width="320" height="240" autoplay muted>
+            <source src={image.photo} type="video/webm">
+          </video>
+        </td>
         <td>
           <span><%= live_redirect "Show", to: Routes.image_show_path(@socket, :show, image) %></span>
           <span><%= live_patch "Edit", to: Routes.image_index_path(@socket, :edit, image) %></span>

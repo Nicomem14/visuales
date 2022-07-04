@@ -16,10 +16,28 @@
     <% # File upload fields here: %>
     <%= label f, :photo %>
     <%= live_file_input @uploads.photo %>
+
+    <%# render each avatar entry %>
+    <%= for entry <- @uploads.photo.entries do %>
+  <article class="upload-entry">
+
+    <figure>
+      <%# Phoenix.LiveView.Helpers.live_img_preview/2 renders a client-side preview %>
+      <%= live_img_preview entry %>
+      <figcaption><%= entry.client_name %></figcaption>
+    </figure>
+
+    <%# entry.progress will update automatically for in-flight entries %>
+    <progress value={entry.progress} max="100"> <%= entry.progress %>% </progress>
+
+    <%# a regular click event whose handler will invoke Phoenix.LiveView.cancel_upload/3 %>
+    <button phx-click="cancel-upload" phx-value-ref={entry.ref} aria-label="cancel">Cancelar</button>
+
+  </article>
+<% end %>
+
   
-    <%= label f, :active %>
-    <%= checkbox f, :active %>
-    <%= error_tag f, :active %>
+    <%= hidden_input f, :active, value: true %>
   
     <div>
       <%= submit "Save", phx_disable_with: "Saving..." %>

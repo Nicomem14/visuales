@@ -1,0 +1,42 @@
+<h1>Listing Influencers</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <.modal return_to={Routes.influencer_index_path(@socket, :index)}>
+    <.live_component
+      module={VisualesWeb.InfluencerLive.FormComponent}
+      id={@influencer.id || :new}
+      title={@page_title}
+      images={@images}
+      action={@live_action}
+      influencer={@influencer}
+      return_to={Routes.influencer_index_path(@socket, :index)}
+    />
+  </.modal>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Content</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="influencers">
+    <%= for influencer <- @influencers do %>
+      <tr id={"influencer-#{influencer.id}"}>
+        <td><%= influencer.name %></td>
+        <td><img src={influencer.content} class="w-30"></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.influencer_show_path(@socket, :show, influencer) %></span>
+          <span><%= live_patch "Edit", to: Routes.influencer_index_path(@socket, :edit, influencer) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: influencer.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Influencer", to: Routes.influencer_index_path(@socket, :new) %></span>

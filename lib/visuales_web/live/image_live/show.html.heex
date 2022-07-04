@@ -21,13 +21,9 @@
   </li>
 
   <li>
-    <strong>Photo:</strong>
-    <img src={@image.photo}>
-  </li>
-
-  <li>
-    <strong>Active:</strong>
-    <%= @image.active %>
+      <video width="320" height="240" autoplay muted>
+        <source src={@image.photo} type="video/webm">
+      </video>
   </li>
 
 </ul>

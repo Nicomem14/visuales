@@ -25,6 +25,13 @@ defmodule VisualesWeb.Router do
 
     live "/images/:id", ImageLive.Show, :show
     live "/images/:id/show/edit", ImageLive.Show, :edit
+
+    live "/influencers", InfluencerLive.Index, :index
+    live "/influencers/new", InfluencerLive.Index, :new
+    live "/influencers/:id/edit", InfluencerLive.Index, :edit
+
+    live "/influencers/:id", InfluencerLive.Show, :show
+    live "/influencers/:id/show/edit", InfluencerLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.
