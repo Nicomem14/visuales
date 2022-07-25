@@ -1,5 +1,3 @@
-<h1>Listing Influencers</h1>
-
 <%= if @live_action in [:new, :edit] do %>
   <.modal return_to={Routes.influencer_index_path(@socket, :index)}>
     <.live_component
@@ -14,29 +12,44 @@
   </.modal>
 <% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Content</th>
+<div class="flex flex-col items-center justify-center text-center my-8">
+  <img src="/images/kpi_logo.webp" class="w-1/6">
+  <h2 class="mt-1 text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">Influencers</h2>
+  <%= live_patch "+ Nuevo Influencer +", to: Routes.influencer_index_path(@socket, :new), class: "m-8 inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto" %>
+  </div>
 
-      <th></th>
-    </tr>
-  </thead>
-  <tbody id="influencers">
-    <%= for influencer <- @influencers do %>
-      <tr id={"influencer-#{influencer.id}"}>
-        <td><%= influencer.name %></td>
-        <td><img src={influencer.content} class="w-30"></td>
 
-        <td>
-          <span><%= live_redirect "Show", to: Routes.influencer_show_path(@socket, :show, influencer) %></span>
-          <span><%= live_patch "Edit", to: Routes.influencer_index_path(@socket, :edit, influencer) %></span>
-          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: influencer.id, data: [confirm: "Are you sure?"] %></span>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<span><%= live_patch "New Influencer", to: Routes.influencer_index_path(@socket, :new) %></span>
+<div class="px-4 sm:px-6 lg:px-8">
+  <div class="-mx-4 mt-8 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:-mx-6 md:mx-0 md:rounded-lg">
+    <table class="min-w-full divide-y divide-gray-300">
+      <thead class="bg-gray-50">
+        <tr>
+          <th scope="col" class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-gray-900 sm:pl-6">Nombre</th>
+          <th scope="col" class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-gray-900 sm:pl-6">Contenido</th>
+          <th scope="col" class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-gray-900 sm:pl-6">Acciones</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200 bg-white" id="influencers">
+        <%= for influencer <- @influencers do %>
+          <tr id={"influencer-#{influencer.id}"}>
+            <td class="w-full max-w-0 py-4 pl-4 pr-3 text-sm text-center font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-6">
+              <%= influencer.name %>
+            </td>
+            <td class="px-3 py-4 text-sm text-gray-500 lg:table-cell">
+              <video width="320" height="240" autoplay muted>
+                <source src={influencer.content} type="video/webm">
+              </video>
+            </td>
+
+            <td class="py-4 pl-3 pr-4 text-center text-sm font-medium sm:pr-6">
+              <span><%= live_redirect "Show", to: Routes.influencer_show_path(@socket, :show, influencer), class: "text-indigo-600 hover:text-indigo-900" %></span>
+              <span><%= live_patch "Edit", to: Routes.influencer_index_path(@socket, :edit, influencer), class: "text-indigo-600 hover:text-indigo-900" %></span>
+              <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: influencer.id, data: [confirm: "Are you sure?"], class: "text-indigo-600 hover:text-indigo-900" %></span>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

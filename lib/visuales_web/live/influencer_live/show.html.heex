@@ -1,31 +1,3 @@
-<h1>Show Influencer</h1>
-
-<%= if @live_action in [:edit] do %>
-  <.modal return_to={Routes.influencer_show_path(@socket, :show, @influencer)}>
-    <.live_component
-      module={VisualesWeb.InfluencerLive.FormComponent}
-      id={@influencer.id}
-      title={@page_title}
-      action={@live_action}
-      influencer={@influencer}
-      return_to={Routes.influencer_show_path(@socket, :show, @influencer)}
-    />
-  </.modal>
-<% end %>
-
-<ul>
-
-  <li>
-    <strong>Name:</strong>
-    <%= @influencer.name %>
-  </li>
-
-  <li>
-    <strong>Content:</strong>
-    <%= @influencer.content %>
-  </li>
-
-</ul>
-
-<span><%= live_patch "Edit", to: Routes.influencer_show_path(@socket, :edit, @influencer), class: "button" %></span> |
-<span><%= live_redirect "Back", to: Routes.influencer_index_path(@socket, :index) %></span>
+<video width="50%" height="50%" autoplay muted loop>
+  <source src={@influencer.content} type="video/webm">
+</video>
