@@ -11,7 +11,7 @@ defmodule VisualesWeb.ImageLive.FormComponent do
      socket
      |> assign(assigns)
      |> assign(:changeset, changeset)
-     |> allow_upload(:photo, accept: ~w(video/* image/*), max_entries: 2)}
+     |> allow_upload(:photo, accept: ~w(video/* image/*), max_entries: 1)}
   end
 
   @impl true
