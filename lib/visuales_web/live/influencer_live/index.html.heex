@@ -36,16 +36,18 @@
             <td class="w-full max-w-0 py-4 pl-4 pr-3 text-sm text-center font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-6">
               <%= influencer.name %>
             </td>
-            <td class="px-3 py-4 text-sm text-gray-500 lg:table-cell">
-              <video width="320" height="240" autoplay muted>
+            <td class="flex px-3 py-4 text-sm text-gray-500 lg:table-cell">
+            <div class="flex flex-none justify-center grow-0">
+              <video class="flex-none w-1/2" autoplay muted>
                 <source src={influencer.content} type="video/webm">
               </video>
+              </div>
             </td>
 
             <td class="py-4 pl-3 pr-4 text-center text-sm font-medium sm:pr-6">
-              <span><%= live_redirect "Show", to: Routes.influencer_show_path(@socket, :show, influencer), class: "text-indigo-600 hover:text-indigo-900" %></span>
-              <span><%= live_patch "Edit", to: Routes.influencer_index_path(@socket, :edit, influencer), class: "text-indigo-600 hover:text-indigo-900" %></span>
-              <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: influencer.id, data: [confirm: "Are you sure?"], class: "text-indigo-600 hover:text-indigo-900" %></span>
+              <span><%= live_redirect "Show", to: Routes.influencer_show_path(@socket, :show, influencer.name), class: "text-indigo-600 hover:text-indigo-900" %></span>
+              <span><%= live_patch "Edit", to: Routes.influencer_index_path(@socket, :edit, influencer.name), class: "text-indigo-600 hover:text-indigo-900" %></span>
+              <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: influencer.name, data: [confirm: "Are you sure?"], class: "text-indigo-600 hover:text-indigo-900" %></span>
             </td>
           </tr>
         <% end %>

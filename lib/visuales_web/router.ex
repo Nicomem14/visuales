@@ -31,10 +31,10 @@ defmodule VisualesWeb.Router do
 
     live "/influencers", InfluencerLive.Index, :index
     live "/influencers/new", InfluencerLive.Index, :new
-    live "/influencers/:id/edit", InfluencerLive.Index, :edit
+    live "/influencers/:name/edit", InfluencerLive.Index, :edit
 
-    live "/influencers/:id", InfluencerLive.Show, :show
-    live "/influencers/:id/show/edit", InfluencerLive.Show, :edit
+    live "/influencers/:name", InfluencerLive.Show, :show
+    live "/influencers/:name/show/edit", InfluencerLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.
@@ -79,6 +79,9 @@ defmodule VisualesWeb.Router do
     get "/users/log_in", UserSessionController, :new
     post "/users/log_in", UserSessionController, :create
 
+    get "/users/register", UserRegistrationController, :new
+    post "/users/register", UserRegistrationController, :create
+
   end
 
   scope "/", VisualesWeb do
@@ -88,8 +91,8 @@ defmodule VisualesWeb.Router do
     put "/users/settings", UserSettingsController, :update
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
 
-    get "/users/register", UserRegistrationController, :new
-    post "/users/register", UserRegistrationController, :create
+    #get "/users/register", UserRegistrationController, :new
+    #post "/users/register", UserRegistrationController, :create
     get "/users/reset_password", UserResetPasswordController, :new
     post "/users/reset_password", UserResetPasswordController, :create
     get "/users/reset_password/:token", UserResetPasswordController, :edit

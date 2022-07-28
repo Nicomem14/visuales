@@ -8,5 +8,7 @@ defmodule Visuales.Repo.Migrations.CreateInfluencers do
 
       timestamps()
     end
+
+    create unique_index(:influencers, :name)
   end
 end

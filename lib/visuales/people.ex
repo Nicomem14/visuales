@@ -37,6 +37,9 @@ defmodule Visuales.People do
   """
   def get_influencer!(id), do: Repo.get!(Influencer, id)
 
+  def get_influencer_by_name(name) when is_bitstring(name),
+  do: Repo.get_by(Influencer, name: name)
+
   @doc """
   Creates a influencer.
 
@@ -71,6 +74,13 @@ defmodule Visuales.People do
     influencer
     |> Influencer.changeset(attrs)
     |> Repo.update()
+    |> case do
+      {:ok, %{name: name}} = response ->
+        Phoenix.PubSub.broadcast(Visuales.PubSub, "influencer:#{name}", :influencer_updated)
+        response
+      error ->
+        error
+    end
   end
 
   @doc """

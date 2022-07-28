@@ -8,5 +8,8 @@ defmodule Visuales.Repo.Migrations.CreateImages do
 
       timestamps()
     end
+
+  create unique_index(:images, :name)
+
   end
 end

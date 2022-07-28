@@ -14,10 +14,13 @@ defmodule VisualesWeb.InfluencerLive.Index do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 
-  defp apply_action(socket, :edit, %{"id" => id}) do
+  defp apply_action(socket, :edit, %{"name" => name}) do
+    images = Visuales.Media.list_images()
+
     socket
     |> assign(:page_title, "Edit Influencer")
-    |> assign(:influencer, People.get_influencer!(id))
+    |> assign(:images, images)
+    |> assign(:influencer, People.get_influencer_by_name(name))
   end
 
   defp apply_action(socket, :new, _params) do
