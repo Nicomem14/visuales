@@ -20,21 +20,8 @@ defmodule VisualesWeb.Router do
   scope "/", VisualesWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
-
-    live "/images", ImageLive.Index, :index
-    live "/images/new", ImageLive.Index, :new
-    live "/images/:id/edit", ImageLive.Index, :edit
-
-    live "/images/:id", ImageLive.Show, :show
-    live "/images/:id/show/edit", ImageLive.Show, :edit
-
-    live "/influencers", InfluencerLive.Index, :index
-    live "/influencers/new", InfluencerLive.Index, :new
-    live "/influencers/:name/edit", InfluencerLive.Index, :edit
-
     live "/influencers/:name", InfluencerLive.Show, :show
-    live "/influencers/:name/show/edit", InfluencerLive.Show, :edit
+
   end
 
   # Other scopes may use custom stacks.
@@ -97,6 +84,21 @@ defmodule VisualesWeb.Router do
     post "/users/reset_password", UserResetPasswordController, :create
     get "/users/reset_password/:token", UserResetPasswordController, :edit
     put "/users/reset_password/:token", UserResetPasswordController, :update
+
+    get "/", PageController, :index
+
+    live "/images", ImageLive.Index, :index
+    live "/images/new", ImageLive.Index, :new
+    live "/images/:id/edit", ImageLive.Index, :edit
+
+    live "/images/:id", ImageLive.Show, :show
+    live "/images/:id/show/edit", ImageLive.Show, :edit
+
+    live "/influencers", InfluencerLive.Index, :index
+    live "/influencers/new", InfluencerLive.Index, :new
+    live "/influencers/:name/edit", InfluencerLive.Index, :edit
+
+    live "/influencers/:name/show/edit", InfluencerLive.Show, :edit
   end
 
   scope "/", VisualesWeb do
